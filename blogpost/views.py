@@ -40,6 +40,9 @@ class BlogimageCreateAPIViews(generics.CreateAPIView):
     serializer_class = BlogimageSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
     
 
 class BlogimageRetrieveUpdateDestroyAPIViews(generics.RetrieveUpdateDestroyAPIView):
